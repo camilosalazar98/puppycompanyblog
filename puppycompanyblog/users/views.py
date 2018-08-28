@@ -7,7 +7,7 @@ from puppycompanyblog.users.picture_handler import add_profile_pic
 
 user = Blueprint('user',__name__)
 
-
+#hi
 #logout_user
 @user.route("/logout")
     def logout():
