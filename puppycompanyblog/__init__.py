@@ -1,12 +1,16 @@
 # puppycompanyblog/__init__.py
+import os
 from flask import Flask
 from flask_sqlalchemy import SQLALchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
+
+
+
 app = Flask(__name__)
 
 
-
+app.config['SECRET_KEY'] = #make my form work
 ########################
 #####Data Base setup####
 ########################
