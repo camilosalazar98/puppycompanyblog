@@ -52,7 +52,6 @@ def login():
                 next = url_for('core.index')
 
                 return redirect(next)
-
     return render_template('login.html',form=form)
 
 

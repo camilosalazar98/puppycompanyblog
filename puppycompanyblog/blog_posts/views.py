@@ -10,7 +10,7 @@ blog_posts = Blueprint('blog_posts',__name__)
 
 
 #creating
-@blog_posts.route('/create',method=['GET','POST'])
+@blog_posts.route('/create',methods=['GET','POST'])
 @login_required
 def create_post():
     form = BlogPostForm()
@@ -28,13 +28,13 @@ def create_post():
     return render_template('create_post.html',form=form)
 
 #Blog Post (view)
-@blog_posts('/<int:blog_post_id>')
+@blog_posts.route('/<int:blog_post_id>')
 def blog_post(blog_posts_id):
     blog_post = BlogPost.query.get_or_404(blog_post_id)
     return render_template('blog_post.html',title = blog_post.title,date = blog_post.date,post=blog_post)
 
 #Update
-@blog_post.route('/<int:blog_post_id/update',methods=['GET','POST'])
+@blog_posts.route("/<int:blog_post_id>/update", methods=['GET', 'POST'])
 @login_required
 def update(blog_posts_id):
     blog_post = BlogPost.query.get_or_404(blog_post_id)
@@ -50,13 +50,13 @@ def update(blog_posts_id):
         db.session.commit()
         flask('Blog Post Updated')
         return redirect(url_for('blog_posts.blog_post',blog_post_id=blog_post.id))
-    elif request.method = 'GET':
+    elif request.method == 'GET':
         form.title.data = blog_post.title
         form.text.data = blog_post.text
     return render_template('create_post.html',title='Updating',form=form)
 
 #delete
-@blog_post.route('/<int:blog_post_id/delete',methods=['GET','POST'])
+@blog_posts.route('/<int:blog_post_id>/delete',methods=['GET','POST'])
 @login_required
 def delete_post(blog_posts_id):
 
