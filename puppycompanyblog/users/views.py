@@ -27,10 +27,10 @@ def register():
                     password = form.password.data)
         db.session.add(user)
         db.session.commit()
-        flash('Thanks for registration')
         return redirect(url_for('users.login'))
 
     return render_template('register.html',form=form)
+
 
 #login
 @users.route('/login',methods=['GET','POST'])
@@ -48,22 +48,23 @@ def login():
 
             next = request.args.get('next')
 
-            if next ==None or not next[0]=='/':
+            if next == None or not next[0]=='/':
                 next = url_for('core.index')
 
-            return redirect(next)
+                return redirect(next)
 
     return render_template('login.html',form=form)
 
 
 
 
-#account
+#account#
 @users.route('/account',methods=['GET','POST'])
 @login_required
 def account():
 
-    form = UpdateUserFrom()
+    form = UpdateUserForm()
+
     if form.validate_on_submit():
 
         if form.picture.data:
@@ -73,13 +74,16 @@ def account():
 
         current_user.username = form.username.data
         current_user.email = form.email.data
+        db.session.commit()
+        flash('User Account Updated')
         return redirect(url_for('users.account'))
-    elif request.method == "GET":
-        form.username.data = current_user.UserName
+
+    elif request.method == 'GET':
+        form.username.data = current_user.username
         form.email.data = current_user.email
 
-    profile_image = url_for('static',filename = 'profile_pics/'+current_user.profile_image)
-    return render_template('account.html',profile_image=profile_image,form=form)
+    profile_image = url_for('static', filename='profile_pics/' + current_user.profile_image)
+    return render_template('account.html', profile_image=profile_image, form=form)
 
 
 @users.route("/<username>")
