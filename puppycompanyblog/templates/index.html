@@ -9,12 +9,12 @@
 {% for post in blog_posts.items %}
 <div class="card">
 <h2>
-  <a class='card-title' href="{{url_for('blog_posts.blog_post,blog_post_id=post.id')}}">{{post.title}}</a>
+  <a class='card-title' href="{{url_for('blog_posts.blog_post',blog_post_id=post.id)}}">{{post.title}}</a>
 </h2>
 
 <a href="{{url_for('users.user_posts',username=post.author.username)}}">Written by:{{post.author.username}}</a>
 <p>Published on: {{post.date.strftime('%Y-%m-%d')}}</p>
-<a class="btn btn-primary"href="{{url_for('blog_postds.blog_post',blog_post_id=post.id)}}">Read Blog Post</a>
+<a class="btn btn-primary"href="{{url_for('blog_posts.blog_post',blog_post_id=post.id)}}">Read Blog Post</a>
 </div>
 
 
